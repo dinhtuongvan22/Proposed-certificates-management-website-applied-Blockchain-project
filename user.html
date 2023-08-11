@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./assets/css/user.css" />
+    <link rel="stylesheet" href="./assets/css/header_stu.css" />
+    <link rel="stylesheet" href="./assets/css/grid.css" />
+    <link rel="stylesheet" href="./assets/css/responsive.css" />
+    <link rel="stylesheet" href="./assets/css/certcustom.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <title>User</title>
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <script src="./abi.js"></script>
+    <script src="./address.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js"
+    ></script>
+  </head>
+  <body>
+    <script>
+      window.onload = function () {
+        showInfo();
+      };
+    </script>
+    <!-- Header Student -->
+    <div class="header">
+      <div class="header__logo">
+        <a href="/" class="header__logo-link">
+          <img
+            src="./assets/image/logo_Black.png"
+            alt=""
+            class="header__logo-img"
+          />
+        </a>
+      </div>
+
+      <div class="header__search">
+        <input
+          id="certIdInput"
+          type="text"
+          class="header__search-input"
+          placeholder="Nhập để tìm kiếm"
+        />
+        <button
+          id="searchCertBtn"
+          class="header__search-btn"
+          onclick="searchCertificate()"
+        >
+          <i class="fa-solid fa-magnifying-glass header__search-icon"></i>
+        </button>
+      </div>
+
+      <div class="user">
+        <a href="user.html" class="user__icon">
+          <i class="fa-solid fa-user user__icon--link"></i>
+        </a>
+        <a href="" class="user__icon">
+          <i class="fa-solid fa-bell user__icon--link"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="header__nav">
+      <input hidden type="checkbox" id="active_bar" />
+      <label for="active_bar" class="header__bar">
+        <i class="fa-solid fa-bars header__bar-icon"></i>
+      </label>
+      <ul class="header__nav-list">
+        <li class="header__nav-item">
+          <a href="index_stu.html" class="header__nav-item--link">Trang chủ</a>
+        </li>
+
+        <li class="header__nav-item">
+          <a href="mycert.html" class="header__nav-item--link"
+            >Chứng chỉ của tôi</a
+          >
+        </li>
+
+        <li class="header__nav-item">
+          <a onclick="showInfo()" href="#" class="header__nav-item--link"
+            >Thông tin cá nhân</a
+          >
+        </li>
+
+        <li class="header__nav-item">
+          <a href="#" class="header__nav-item--link">Liên hệ</a>
+        </li>
+
+        <li class="header__nav-item">
+          <a href="#" class="header__nav-item--link">Hỗ trợ</a>
+        </li>
+      </ul>
+    </div>
+    <!--  -->
+
+    <div id="cert_search" class="grid wide user__wrap">
+      <div class="row">
+        <div class="col l-3 m-12 c-12">
+          <div class="user__setting">
+            <div class="none"></div>
+            <div class="user__avt--wrap">
+              <div class="user__avt" id="avt__display"></div>
+              <a href="" class="user__avt-btn">
+                <input
+                  type="file"
+                  name="uploadfile"
+                  id="avt__img"
+                  style="display: none"
+                  accept="image/png, image/jpg"
+                />
+                <label class="avt__label" for="avt__img">
+                  <i class="fa-solid fa-pen-to-square user__avt-icon"></i>
+                </label>
+              </a>
+            </div>
+            <p id="name" class="user__name"></p>
+            <p id="id" class="user__id"></p>
+            <a href="" class="btn-s">Chỉnh sửa</a>
+            <a onclick="Logout()" href="" class="btn btn_cus">
+              Đăng xuất
+              <i class="fa-solid fa-right-from-bracket"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col l-9 m-12 c-12">
+          <div class="user__info">
+            <div class="none"></div>
+            <div class="user__info-item">
+              <i class="fa-solid fa-user user__infor-icon"></i>
+              <div class="user__info-wrap">
+                <input
+                  class="user__info-tag"
+                  placeholder="id student"
+                  disabled
+                />
+                <div id="idStudent" class="user__infor-name"></div>
+              </div>
+            </div>
+
+            <div class="user__info-item">
+              <i class="fa-solid fa-calendar user__infor-icon"></i>
+              <div class="user__info-wrap">
+                <input
+                  class="user__info-tag"
+                  placeholder="Full name"
+                  disabled
+                />
+                <div id="nameStudent" class="user__infor-name"></div>
+              </div>
+            </div>
+
+            <div class="user__info-item">
+              <i class="fa-solid fa-venus user__infor-icon"></i>
+              <div class="user__info-wrap">
+                <input
+                  class="user__info-tag"
+                  placeholder="Date of birth"
+                  disabled
+                />
+                <div id="birth" class="user__infor-name"></div>
+              </div>
+            </div>
+
+            <div class="user__info-item">
+              <i class="fa-solid fa-phone user__infor-icon"></i>
+              <div class="user__info-wrap">
+                <input class="user__info-tag" placeholder="Gender" disabled />
+                <div id="sex" class="user__infor-name"></div>
+              </div>
+            </div>
+
+            <div class="user__info-item">
+              <i class="fa-solid fa-envelope user__infor-icon"></i>
+              <div class="user__info-wrap">
+                <input class="user__info-tag" placeholder="Email" disabled />
+                <div id="email" class="user__infor-name"></div>
+              </div>
+            </div>
+
+            <div class="user__info-item">
+              <i class="fa-solid fa-book user__infor-icon"></i>
+              <div class="user__info-wrap">
+                <input class="user__info-tag" placeholder="Major" disabled />
+                <div id="majors" class="user__infor-name"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p w3-include-html="footer.html"></p>
+    <script>
+      w3.includeHTML();
+
+      //1- connect metamask
+      let account;
+      //2- connect smart contract
+      const searchCertificate = async () => {
+        //2- connect smartcontract
+        if (window.ethereum !== "undefined") {
+          const accounts = await ethereum.request({
+            method: "eth_requestAccounts",
+          });
+          account = accounts[0];
+        }
+
+        ABI;
+        Address;
+
+        window.web3 = await new Web3(window.ethereum);
+        window.contract = await new window.web3.eth.Contract(ABI, Address);
+
+        //3- get data from smart contract
+        let certIdInput = document.querySelector("#certIdInput").value;
+        const data = await window.contract.methods
+          .getCertificateById(certIdInput)
+          .call();
+
+        //get data from server
+        fetch("http://localhost:3000/certificates")
+          .then((response) => response.json())
+          .then((dataServer) => {
+            // Here, the "data" variable contains the parsed JSON data.
+
+            dataServer.map(myFunction);
+          });
+
+        function myFunction(obj) {
+          let imgSrc = "";
+          if (obj["id"] == data[0]) {
+            imgSrc = obj.img;
+
+            var html = `
+            <div class="row mt30 cert_custom">
+                <div class="col l-4">
+                  <img src="${imgSrc}" alt="" class="cert__img">
+                </div>
+                <div class="col l-8">
+                  <div class="cert__info-wrap">
+                    <div class="cert__info">
+                      <h1 class="cert__name">${data[1]}</h1>
+                      <div class="cert__detail--wrap">
+                        <p class="label">ID:</p>
+                        <p class="cert__id">${data[0]}</p>
+                      </div>
+                      <div class="cert__detail--wrap">
+                        <p class="label">Họ tên:</p>
+                        <p class="cert__receiver">${data[2]}</p>
+                      </div>
+                      <div class="cert__detail--wrap">
+                        <p class="label">Ngày phát hành:</p>
+                        <p class="cert__receiver">${data[3]}</p>
+                      </div>
+                      <div class="cert__detail--wrap">
+                        <p class="label">Ngày hết hạn:</p>
+                        <p class="cert__receiver">${data[4]}</p>
+                      </div>
+                      <div class="cert__detail--wrap">
+                        <p class="label">Xếp loại:</p>
+                        <p class="cert__receiver">${data[5]}</p>
+                      </div>
+                      <div class="cert__detail--wrap">
+                        <p class="label">Đơn vị phát hành:</p>
+                        <p class="cert__receiver">${data[6]}</p>
+                      </div>
+                      <div class="cert__detail--wrap">
+                        <p class="label">Trạng thái:</p>
+                        <p class="cert__status">
+                          <span>Đang phát hành</span>
+                        </p>
+                      </div>
+        
+                      <p class="cert__date"></p>
+                      <p class="cert__outdate"></p>
+                      <p class="cert__rank"></p>
+                      <p class="cert__issuer"></p>
+                    </div>
+                    <a href="#" class="cert__code"
+                      >Nhận mã chứng chỉ</a
+                    >
+                  </div>
+                </div>
+              </div>
+          `;
+            listCertificatesBlock.innerHTML = html;
+          }
+        }
+
+        var listCertificatesBlock = document.querySelector("#cert_search");
+      };
+
+      //Logout
+      let name = localStorage.getItem("name")
+        ? localStorage.getItem("name")
+        : "";
+      console.log(name);
+      if (name == "") {
+        //   alert('U need to login first');
+        window.location.href = "login.html";
+      }
+
+      function Logout() {
+        localStorage.removeItem("name");
+        localStorage.removeItem("email");
+        window.location.href = "login.html";
+      }
+
+      //show thông tin người sử dụng
+      const showInfo = async () => {
+        if (window.ethereum !== "undefined") {
+          const accounts = await ethereum.request({
+            method: "eth_requestAccounts",
+          });
+          account = accounts[0];
+        }
+
+        ABI;
+        Address;
+        window.web3 = await new Web3(window.ethereum);
+        window.contract = await new window.web3.eth.Contract(ABI, Address);
+
+        //3- send certificate data
+        let email = localStorage.getItem("email");
+        const result = await window.contract.methods
+          .getStudentByEmail(email)
+          .call();
+        document.getElementById("id").innerText = result[0];
+        document.getElementById("name").innerText = result[1];
+        document.getElementById("idStudent").innerText = result[0];
+        document.getElementById("nameStudent").innerText = result[1];
+        document.getElementById("birth").innerText = result[4]; //4
+        document.getElementById("sex").innerText = result[3];
+        document.getElementById("email").innerText = result[5]; //5
+        document.getElementById("majors").innerText = result[2]; //2
+      };
+    </script>
+  </body>
+</html>

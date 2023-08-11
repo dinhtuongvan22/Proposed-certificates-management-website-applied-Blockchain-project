@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./assets/css/addcert.css" />
+    <link rel="stylesheet" href="./assets/css/grid.css" />
+	<link rel="stylesheet" href="./assets/css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js">
+   </script>
+    <title>Add Certificate</title>
+  </head>
+  <body>
+    <p w3-include-html="header.html"></p>
+
+    <div class="grid wide cert__wrap">
+      <div class="row cert_custom mt30 mb30">
+		<div class="col l-6 m-12 c-12">
+			<div class="cert__load">
+			  <p class="cert__xyz">Hình ảnh chứng chỉ</p>
+  
+			  <img id="img_preview" src="" height="200px"></img>
+			  <a href="#" class="btn btn_cus">
+				<input
+				  onchange="previewFile()"
+				  type="file"
+				  name="uploadfile"
+				  id="image"
+				  style="display: none"
+				  accept="image/png, image/jpg, image/jpeg"
+				/>
+				<label for="image">Upload</label>
+				<i class="fa-solid fa-upload cert__icon"></i>
+			  </a>
+			</div>
+		  </div>
+        <div class="col l-6 m-12 c-12 cert__info">
+          <div class="row mb-10">
+            <div class="col l-4 m-4 c-4">
+              <div class="cert__title">ID chứng chỉ</div>
+            </div>
+            <div class="col l-8 m-8 c-8">
+              <input id="idCertificate"
+                name="id"
+                type="text"
+                class="cert__receiver"
+                placeholder="Nhập ID chứng chỉ"
+              />
+            </div>
+          </div>
+
+          <div class="row mb-10">
+            <div class="col l-4 m-4 c-4">
+              <div class="cert__title">Tên chứng chỉ</div>
+            </div>
+            <div class="col l-8 m-8 c-8">
+              <input id="nameCertificate"
+                name="name"
+                type="text"
+                class="cert__name"
+                placeholder="Nhập tên chứng chỉ"
+              />
+            </div>
+          </div>
+
+          <div class="row mb-10">
+            <div class="col l-4 m-4 c-4">
+              <div class="cert__title">Tên sinh viên</div>
+            </div>
+            <div class="col l-8 m-8 c-8">
+              <input id="nameStudent"
+                name="receiver"
+                type="text"
+                class="cert__receiver"
+                placeholder="Nhập tên sinh viên"
+              />
+            </div>
+          </div>
+          <div class="row mb-10">
+            <div class="col l-4 m-4 c-4">
+              <div class="cert__title">Id sinh viên</div>
+            </div>
+            <div class="col l-8 m-8 c-8">
+              <input id="idStudent"
+                name="receiver"
+                type="text"
+                class="cert__receiver"
+                placeholder="Nhập id sinh viên"
+              />
+            </div>
+          </div>
+
+          <div class="row mb-10">
+            <div class="col l-4 m-4 c-4">
+              <div class="cert__title">Ngày phát hành</div>
+            </div>
+            <div class="col l-8 m-8 c-8">
+              <input id="releaseDate"
+                name="date"
+                type="date"
+                class="cert__date"
+                placeholder="Nhập ngày phát hành"
+                onchange="console.log(this.value);"
+              />
+            </div>
+          </div>
+
+          <div class="row mb-10">
+            <div class="col l-4 m-4 c-4">
+              <div class="cert__title">Ngày hết hạn</div>
+            </div>
+            <div class="col l-8 m-8 c-8">
+              <input id="expirationDate"
+                name="outdate"
+                type="date"
+                class="cert__outdate"
+                placeholder="Nhập ngày hết hạn"
+                onchange="console.log(this.value);"
+              />
+            </div>
+          </div>
+
+          <div class="row mb-10">
+            <div class="col l-4 m-4 c-4">
+              <div class="cert__title">Xếp loại</div>
+            </div>
+            <div class="col l-8 m-8 c-8">
+              <input id="grade"
+                name="rank"
+                type="text"
+                class="cert__rank"
+                placeholder="Nhập xếp loại"
+              />
+            </div>
+          </div>
+
+          <div class="row mb-10">
+            <div class="col l-4 m-4 c-4">
+              <div class="cert__title">Đơn vị phát hành</div>
+            </div>
+            <div class="col l-8 m-8 c-8">
+              <input id="issuer"
+                name="issuer"
+                type="text"
+                class="cert__issuer"
+                placeholder="Nhập tên đơn vị"
+              />
+            </div>
+          </div>
+        <a id="create" href="#" class="btn">Phát hành</a>
+        </div>
+        
+      </div>
+
+    </div>
+
+    <p w3-include-html="footer.html"></p>
+
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <script>
+      w3.includeHTML();
+
+      function previewFile(){
+            const preview = document.querySelector('#img_preview');
+            const file = document.querySelector('#image').files[0];
+            const reader = new FileReader();
+
+            reader.addEventListener("load", function() {
+              //convert image file to base64 string
+              preview.src = reader.result;
+            }, false);
+
+            if(file){
+                reader.readAsDataURL(file)
+            }
+          }
+
+      
+        //1- connect metamask
+      let account;
+      //2- connect smart contract
+      const addCert = async () => {
+
+        if (window.ethereum !== "undefined") {
+          const accounts = await ethereum.request({
+            method: "eth_requestAccounts",
+          });
+          account = accounts[0];
+        }
+
+        ABI;
+        Address;
+        window.web3 = await new Web3(window.ethereum);
+        window.contract = await new window.web3.eth.Contract(ABI, Address);
+
+
+        //3- send certificate data
+        let _idCertificate, _nameCertificate, _nameStudent,_releaseDate,_expirationDate, _issuer, _grade,_idStudent;
+            _idCertificate = document.getElementById("idCertificate").value;
+            _nameCertificate = document.getElementById("nameCertificate").value;
+            _nameStudent = document.getElementById("nameStudent").value;
+            _releaseDate = document.getElementById("releaseDate").value;
+            _expirationDate = document.getElementById("expirationDate").value;
+            _issuer = document.getElementById("issuer").value;
+            _idStudent = document.getElementById("idStudent").value;
+            _grade= document.getElementById("grade").value;
+
+
+            await window.contract.methods.addCertificate(_idCertificate, _nameCertificate, _nameStudent,_releaseDate,_expirationDate, _issuer,_idStudent, _grade).send({ from: account });
+      };
+    </script>
+    <script src="./app.js"></script>
+  </body>
+</html>
